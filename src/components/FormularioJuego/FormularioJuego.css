@@ -1,0 +1,58 @@
+.formulario-juego {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px; /* Mismo margen que la biblioteca */
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* Misma sombra que las tarjetas */
+  display: flex; /* Para poner las cosas en columna */
+  flex-direction: column;
+  align-items: center; /* Centramos todo */
+}
+
+.form-grupo {
+  margin-bottom: 15px; /* Espacio entre cada pregunta */
+  width: 80%; /* Que no sea tan ancho */
+}
+
+.form-grupo label {
+  display: block; /* La etiqueta arriba del input */
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-grupo input {
+  width: 100%; /* El input ocupa todo el espacio */
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box; /* Esto evita problemas de tamaño */
+}
+
+.btn-agregar {
+  background-color: #28a745; /* Un lindo color verde */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; /* Que el mouse se ponga como manito */
+}
+
+.btn-agregar:hover {
+  background-color: #218838; /* Un verde más oscuro al pasar el mouse */
+}
+
+.form-grupo-check {
+  display: flex; /* Pone la etiqueta y la caja en fila */
+  align-items: center; /* Los centra verticalmente */
+  justify-content: center; /* Los centra en el medio */
+  width: 80%;
+  margin-bottom: 15px;
+}
+
+.form-grupo-check label {
+  margin-bottom: 0; /* Le quitamos el margen de abajo */
+  margin-right: 10px; /* Le damos espacio a la derecha */
+}

@@ -1,0 +1,25 @@
+.tarjeta {
+  width: 200px; /* Ancho de la tarjeta */
+  border: 1px solid #ccc; /* Borde gris */
+  border-radius: 10px; /* Bordes redondos */
+  margin: 10px; /* Espacio entre tarjetas */
+  padding: 10px; /* Espacio por dentro */
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* Una sombrita suave */
+  background-color: white; /* Fondo blanco */
+  text-align: left; /* Alineamos el texto a la izquierda */
+}
+
+.tarjeta-portada {
+  width: 100%; /* La imagen ocupa todo el ancho de la tarjeta */
+  border-radius: 5px; /* Bordes redondos para la imagen */
+}
+
+.tarjeta-titulo {
+  font-size: 18px;
+  margin: 10px 0 5px 0;
+}
+
+.tarjeta-estrellas {
+  color: #f39c12; /* Color doradito para las estrellas */
+  font-weight: bold;
+}

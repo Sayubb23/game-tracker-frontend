@@ -1,0 +1,14 @@
+.biblioteca-contenedor {
+  background-color: #f4f4f4; /* Un fondo gris clarito */
+  border: 1px solid #ddd; /* Un borde finito */
+  margin: 20px;
+  padding: 20px;
+  min-height: 400px;
+}
+
+/* ¡Esta es la magia! */
+.lista-juegos {
+  display: flex; /* Pone las tarjetas en fila */
+  flex-wrap: wrap; /* Si no caben, bajan a la siguiente fila */
+  justify-content: center; /* Centra las tarjetas en la estantería */
+}

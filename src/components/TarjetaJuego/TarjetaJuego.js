@@ -3,7 +3,7 @@ import './TarjetaJuego.css'; // 4. (Este es el paso 4)
 
 // ¡Aquí están las "ranuras" (props)!
 // Estamos diciendo: "Quien me use, me tiene que dar un titulo, una portada y estrellas"
-function TarjetaJuego({ titulo, portada, estrellas, horas, completado}) {
+function TarjetaJuego({ id, titulo, portada, estrellas, horas, completado, onEliminarJuego}) {
 return (
   <div className="tarjeta">
     <img src={portada} alt={titulo} className="tarjeta-portada" />
@@ -22,7 +22,12 @@ return (
       */}
       {completado ? 'Completado ✅' : 'Pendiente ❌'}
     </p>
-
+      {/* ... justo despues del parrafo de "Completado / Pendiente" ... */}
+      <button
+      className="btn-eliminar"
+      onClick={() => onEliminarJuego(id)}>
+        Eliminar
+      </button>
   </div>
 );
 }

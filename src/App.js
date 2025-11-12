@@ -35,31 +35,36 @@ const DATOS_INICIALES = [
 function App() {
   // ¡La Caja Maestra!
   const [juegos, setJuegos] = useState(DATOS_INICIALES);
-
-  // Esta es la "instrucción" que se ejecuta cuando el formulario "llama"
+  
   const agregarJuegoHandler = (datosDelFormulario) => {
 
-    // Creamos un juego nuevo con los datos del formulario
     const juegoNuevo = {
-      ...datosDelFormulario, // Copia el título, portada y estrellas
-      id: Math.random().toString() // Le ponemos un ID único (una pegatina)
+      ...datosDelFormulario, 
+      id: Math.random().toString()
     };
 
-    // ¡IMPORTANTE! No "empujamos" el juego.
-    // Creamos una "lista NUEVA" con el juego nuevo al principio.
-    setJuegos((juegosAnteriores) => {
+
+    setJuegos((juegosAnteriores) =>  {
       return [juegoNuevo, ...juegosAnteriores];
     });
   };
+
+  // Maneja la eliminación de un juego por id
+  const eliminarJuegoHandler = (id) => {
+    setJuegos((juegosAnteriores) => {
+      return juegosAnteriores.filter((juego) => juego.id !== id);
+    });
+  };
+
 
 
   return (
     <div className="App">
       <h1>¡Hola, Gamer! Este es tu GameTracker.</h1>
       <FormularioJuego onAgregarJuego={agregarJuegoHandler} />
-
+      
       {/* ¡Le pasamos la caja de juegos a la estantería! */}
-      <BibliotecaJuegos juegos={juegos} />
+  <BibliotecaJuegos juegos={juegos} onEliminarJuego={eliminarJuegoHandler} />
     </div>
   );
 }

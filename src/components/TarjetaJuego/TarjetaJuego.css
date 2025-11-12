@@ -23,3 +23,19 @@
   color: #f39c12; /* Color doradito para las estrellas */
   font-weight: bold;
 }
+
+.btn-eliminar {
+  background-color: #dc3545;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-eliminar:hover {
+  background-color: #c82333;
+}

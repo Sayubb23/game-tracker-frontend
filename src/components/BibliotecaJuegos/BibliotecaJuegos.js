@@ -3,7 +3,7 @@ import './BibliotecaJuegos.css';
 import TarjetaJuego from '../TarjetaJuego/TarjetaJuego';
 
 // ¡Recibimos "juegos" como un regalo (props)!
-function BibliotecaJuegos({ juegos }) {
+function BibliotecaJuegos({ juegos, onEliminarJuego }) {
 
   return (
     <div className="biblioteca-contenedor">
@@ -17,9 +17,13 @@ function BibliotecaJuegos({ juegos }) {
         {juegos.map((juego) => (
           <TarjetaJuego
             key={juego.id} // La llave es súper importante para React
+            id={juego.id}
             titulo={juego.titulo}
             portada={juego.portada}
             estrellas={juego.estrellas}
+            horas={juego.horas}
+            completado={juego.completado}
+            onEliminarJuego={onEliminarJuego}
           />
         ))}
 

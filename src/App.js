@@ -2,6 +2,8 @@ import React, { useState } from 'react'; // ¡Importamos useState!
 import './App.css';
 import BibliotecaJuegos from './components/BibliotecaJuegos/BibliotecaJuegos';
 import FormularioJuego from './components/FormularioJuego/FormularioJuego';
+import EstadisticaPersonales from './components/EstadisticasPersonales/EstadisticasPersonales';
+
 
 // ¡Nuestros datos iniciales!
 const DATOS_INICIALES = [
@@ -56,13 +58,12 @@ function App() {
     });
   };
 
-
-
   return (
     <div className="App">
       <h1>¡Hola, Gamer! Este es tu GameTracker.</h1>
-      <FormularioJuego onAgregarJuego={agregarJuegoHandler} />
-      
+      {/* Aqui lo ponemos Y le pasamos la "Caja Maestra" */}
+        <EstadisticaPersonales juegos={juegos}/>
+        <FormularioJuego onAgregarJuego={agregarJuegoHandler} />
       {/* ¡Le pasamos la caja de juegos a la estantería! */}
   <BibliotecaJuegos juegos={juegos} onEliminarJuego={eliminarJuegoHandler} />
     </div>

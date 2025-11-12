@@ -1,0 +1,38 @@
+.estadistica-contenedor {
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+}
+
+.estadistica-contenedor h3 {
+    border-bottom: 2px solid #f39c12;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.stats-lista {
+    display: flex;
+    justify-content: space-around;
+}
+
+.stat-item {
+    background-color: #555;
+    padding: 15px;
+    border-radius: 8px;
+    min-width: 120px;
+}
+
+.stat-item p {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #ddd;
+}
+
+.stat-item span {
+    font-size: 28px;
+    font-weight: bold;
+    color: #f39c12;
+}

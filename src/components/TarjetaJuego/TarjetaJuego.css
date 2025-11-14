@@ -39,3 +39,19 @@
 .btn-eliminar:hover {
   background-color: #c82333;
 }
+
+.btn-toggle-completado {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-toggle-completado:hover {
+  background-color: #0056b3;
+}

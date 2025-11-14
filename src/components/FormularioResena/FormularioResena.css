@@ -1,0 +1,37 @@
+.form-resena {
+    background-color: #e3f2fd;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    border: 2px dashed #2196f3;
+    text-align: center;
+}
+
+.input-resena {
+    display: block;
+    width: 90%;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solud #ccc;
+}
+
+.area-texto {
+    height: 80px;
+    font-family: Arial, sans-serif;
+}
+
+.btn-resena {
+    background-color: #2196f3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-resena hover {
+    background-color: #1976d2;
+}
+

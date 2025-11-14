@@ -1,0 +1,33 @@
+.muro-resenas {
+    margin: 40px 20px;
+    padding-top: 20px;
+    border-top: 4px solid #333;
+}
+
+.contenedor-notas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.nota-resena {
+    background-color: #fff9c4;
+    width: 200px;
+    padding: 15px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    transform: rotate(-2deg);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.nota-resena:nth-child(even) {
+    transform: rotate(2deg);
+    background-color: #e1bee7;
+}
+
+.nota-resena h4 {
+    margin-top: 0;
+    color: #555;
+    border-bottom: 1px solid #999;
+}
+

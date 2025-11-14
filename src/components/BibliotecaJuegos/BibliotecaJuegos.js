@@ -3,7 +3,7 @@ import './BibliotecaJuegos.css';
 import TarjetaJuego from '../TarjetaJuego/TarjetaJuego';
 
 // ¡Recibimos "juegos" como un regalo (props)!
-function BibliotecaJuegos({ juegos, onEliminarJuego }) {
+function BibliotecaJuegos({ juegos, onEliminarJuego, onToggleCompletado }) {
 
   return (
     <div className="biblioteca-contenedor">
@@ -24,6 +24,7 @@ function BibliotecaJuegos({ juegos, onEliminarJuego }) {
             horas={juego.horas}
             completado={juego.completado}
             onEliminarJuego={onEliminarJuego}
+            onToggleCompletado={onToggleCompletado}
           />
         ))}
 

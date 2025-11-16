@@ -1,0 +1,32 @@
+.ordenador-contenedor {
+    margin: 10px auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.ordenador-contenedor span {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+.ordenador-contenedor button {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    margin: 0 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.ordenador-contenedor button:hover {
+    background-color: #f0f0f0;
+}
+
+.ordenador-contenedor button.activo {
+    background-color: #6c5ce7;
+    color: white;
+    border-color: #6c5ce7;
+    box-shadow: 0 2px 5px rgba(108, 92, 231, 0.3);
+}

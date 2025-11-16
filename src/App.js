@@ -6,6 +6,7 @@ import EstadisticaPersonales from './components/EstadisticasPersonales/Estadisti
 import Buscador from './components/Buscador/Buscador';
 import ListaResenas from './components/ListaResenas/ListaResenas';
 import FormularioResena from './components/FormularioResena/FormularioResena';
+import Ordenador from './components/Ordenador/Ordenador';
 
 // ¡Nuestros datos iniciales!
 const DATOS_INICIALES = [
@@ -45,6 +46,8 @@ function App() {
 
   // Guardar las reseñas que escribamos
   const [resenas, setResenas] = useState([]); 
+
+  const [tipoOrden, setTipOrden] = useState('titulo');
 
   const agregarJuegoHandler = (datosDelFormulario) => {
 
@@ -87,11 +90,31 @@ function App() {
     });
   };
 
-  const juegosFiltrados = juegos.filter((juego) => {
-    // Convertimos todo a minusculas para que "Mario" y "mario" sean iguales
-    return juego.titulo.toLowerCase().includes(busqueda.toLowerCase());
+// --- BLOQUE MÁGICO: FILTRADO Y ORDENAMIENTO ---
+
+// 1. Primero Filtramos (igual que antes)
+  let juegosAProcesar = juegos.filter((juegos) => {
+    return juego.titulo.toLowerCase().includes(busqueda.toLowerCase())
   });
 
+// 2. Después Ordenamos la lista filtrada
+  // Usamos ".sort()", que compara pares de juegos (a y b)
+  juegosAProcesar.sort((a, b) => {
+    if (tipoOrden === 'titulo') {
+      // Orden A-Z: Compara letras
+      return a.titulo.localeCompare(b.titulo);
+    }
+    else if (tipoOrden === 'estrellas') {
+      // Mayor a menor Estrellas: Restamos b - a 
+      return b.estrellas - a.estrellas;
+    }
+    else if (tipoOrden === 'hora') {
+      // Mayor a Menor horas: Restamos b - a 
+      return Number(b.horas) - Number(a.horas);
+    }
+
+    return 0; // Si no hay orden, no muevas nada
+  });
 
   return (
     <div className="App">
@@ -104,10 +127,14 @@ function App() {
         onBuscar={setBusqueda} 
         />
 
+        <Ordenador 
+        ordenActual={tipoOrden}
+        onOrdenCambio={setTipoOrden}/>
+
         <FormularioJuego onAgregarJuego={agregarJuegoHandler} />
       {/* ¡Le pasamos la caja de juegos a la estantería! */}
         <BibliotecaJuegos 
-        juegos={juegosFiltrados} 
+        juegos={juegosAProcesar} 
         onEliminarJuego={eliminarJuegoHandler} 
         onToggleCompletado={toggleCompletadoHandler}/>
 

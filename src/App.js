@@ -94,7 +94,7 @@ function App() {
 
 // 1. Primero Filtramos (igual que antes)
   let juegosAProcesar = juegos.filter((juegos) => {
-    return juego.titulo.toLowerCase().includes(busqueda.toLowerCase())
+    return juegos.titulo.toLowerCase().includes(busqueda.toLowerCase())
   });
 
 // 2. Después Ordenamos la lista filtrada
@@ -129,7 +129,7 @@ function App() {
 
         <Ordenador 
         ordenActual={tipoOrden}
-        onOrdenCambio={setTipoOrden}/>
+        onOrdenCambio={setTipOrden}/>
 
         <FormularioJuego onAgregarJuego={agregarJuegoHandler} />
       {/* ¡Le pasamos la caja de juegos a la estantería! */}

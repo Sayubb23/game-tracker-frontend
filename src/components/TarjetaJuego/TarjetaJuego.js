@@ -3,7 +3,7 @@ import './TarjetaJuego.css'; // 4. (Este es el paso 4)
 
 // ¡Aquí están las "ranuras" (props)!
 // Estamos diciendo: "Quien me use, me tiene que dar un titulo, una portada y estrellas"
-function TarjetaJuego({ id, titulo, portada, estrellas, horas, completado, onEliminarJuego, onToggleCompletado }) {
+function TarjetaJuego({ id, titulo, portada, estrellas, horas, completado, onEliminarJuego, onToggleCompletado, onAbrirModaEditar }) {
 return (
   <div className="tarjeta">
     <img src={portada} alt={titulo} className="tarjeta-portada" />
@@ -23,15 +23,22 @@ return (
       {completado ? 'Completado ✅' : 'Pendiente ❌'}
     </p>
       {/* ... justo despues del parrafo de "Completado / Pendiente" ... */}
-
       {/* El boton inteligente */}
       <button className="btn-toggle-completado" onClick={() => onToggleCompletado(id)}>
         {/* Si está "completado" (true), muestra "Marcar Pendiente".
       Si no (!completado), muestra "Marcar Completado".
-  */}
-  {completado ? 'Marcar Pendiente ❌' : 'Marcar Completado ✅'}
+      */}
+      {completado ? 'Marcar Pendiente ❌' : 'Marcar Completado ✅'}
       </button>
 
+      {/* ...Botón Editar... */}
+      <button
+      className="btn-editar"
+      onClick={() => onAbrirModaEditar(id)} // Llama al nuevo telefono
+      > 
+      Editar ✏️
+      </button>
+      {/* ...Botón "Eliminar"... */}
       <button
       className="btn-eliminar"
       onClick={() => onEliminarJuego(id)}>

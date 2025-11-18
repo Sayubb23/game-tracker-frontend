@@ -1,4 +1,60 @@
-.App {
-  text-align: center; /* Centra el texto */
-  font-family: Arial, sans-serif; /* Pone una letra fácil de leer */
+/* Primero, le damos un fondo a toda la pagina y reiniciamos margenes */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
 }
+
+.App {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.App h1 {
+  text-align: center;
+  color: #444;
+}
+
+/* Estilo para el nuevo encabezado (titulo + interruptor) */
+.app-header {
+  display: flex; /* Los pone en fila */
+  justify-content: center; /* Los centra horizontalmente */
+  align-items: center; /* Los centra verticalmente */
+  flex-wrap: wrap; /* Si la pantalla es pequeña, se reacomodan */
+}
+
+.app-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.layout-sidebar {
+  flex: 1;
+  min-width: 300px;
+}
+
+.layout-main {
+  flex: 3;
+  min-width: 300px;
+}
+
+
+/* --- ESTILOS MODO OSCURO ---*/
+
+/* Cuando el BODY tenga la etiqueta "modo-oscuro"...*/
+body.modo-oscuro {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+/* Tambien cambiamos el color de los titulos */
+body.modo-oscuro .App h1,
+body.modo-oscuro .layout-main h2,
+body.modo-oscuro .form-resena h3 {
+  color: #ffffff;
+}
+

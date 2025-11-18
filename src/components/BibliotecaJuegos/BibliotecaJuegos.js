@@ -3,14 +3,11 @@ import './BibliotecaJuegos.css';
 import TarjetaJuego from '../TarjetaJuego/TarjetaJuego';
 
 // ¡Recibimos "juegos" como un regalo (props)!
-function BibliotecaJuegos({ juegos, onEliminarJuego, onToggleCompletado }) {
-
+function BibliotecaJuegos({ juegos, onEliminarJuego, onToggleCompletado, onAbrirModalEditar }) {
   return (
     <div className="biblioteca-contenedor">
       <h2>Mi Estantería de Juegos</h2>
-
       <div className="lista-juegos">
-
         {/* Recorremos la lista de "juegos" que recibimos
           y creamos una Tarjeta para cada uno.
         */}
@@ -25,9 +22,9 @@ function BibliotecaJuegos({ juegos, onEliminarJuego, onToggleCompletado }) {
             completado={juego.completado}
             onEliminarJuego={onEliminarJuego}
             onToggleCompletado={onToggleCompletado}
+            onAbrirModaEditar={onAbrirModalEditar}
           />
         ))}
-
       </div>
     </div>
   );

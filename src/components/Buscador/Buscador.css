@@ -22,3 +22,17 @@
     font-size: 16px;
 }
 
+body.modo-oscuro .buscador-contenedor {
+    background-color: #2a2a2a;
+    border-color: #444;
+}
+
+body.modo-oscuro .buscador-contenedor input {
+    background-color: transparent;
+    color: #e0e0e0;
+}
+
+/* Cambia el color del texto "placeholder" */
+body.modo-oscuro .buscador-contenedor input::placeholder {
+    color: #888;
+}

@@ -55,3 +55,35 @@
 .btn-toggle-completado:hover {
   background-color: #0056b3;
 }
+
+body.modo-oscuro .tarjeta {
+  background-color: #2a2a2a;
+  border-color: #444;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+body.modo-oscro .tarjeta-titulo {
+  color: #ffffff;
+}
+
+.btn-editar {
+  background-color: #ffc107;
+  color: #333;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-editar:hover {
+  background-color: #e0a800;
+}
+
+/* Estilos Modo Oscuro para el boton editar */
+body.modo-oscuro .btn-editar {
+  background-color: #ffc107;
+  color: #1a1a1a;
+}

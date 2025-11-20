@@ -68,6 +68,13 @@ function App() {
     obtenerDatos();
   }, []);
 
+useEffect(() => {
+  document.body.classList.remove('modo-claro', 'modo-oscuro');
+  if (esModoOscuro) document.body.classList.add('modo-oscuro');
+  else document.body.classList.add('modo-claro');
+  localStorage.setItem('game-tracker-modoOscuro', esModoOscuro);
+}, [esModoOscuro]);
+
 // Funcion para AGREGAR un juego (POST al Backend)
 const agregarJuegoHandler = async (datosDelFormulario) => {
   try{
@@ -144,7 +151,7 @@ const eliminarJuegoHandler = async (idDelJuego) => {
   // Esta funcion recibe el ID del juego de la tarjeta
   const abrirModalEditarHandler = (idDelJuego) => {
     // 1. Buscamos el juego completo en nuestra lista "juegos"
-    const juegoEncontrado = juegos.find((juego) => juego.id === idDelJuego);
+    const juegoEncontrado = juegos.find((juego) => (juego._id || juego.id) === idDelJuego);
     // 2. Lo ponemos en el "cajon"
     setJuegoAEditar(juegoEncontrado);
   };
@@ -157,7 +164,7 @@ const cerrarModalHandler = () => {
 // Función para GUARDAR EDICIÓN TOTAL (PUT al Backend)
   const guardarCambiosHandler = async (datosEditados) => {
     try {
-      // El ID viene dentro de "datosEditados"
+      // Mongo usa "_id", pero a veces el front tiene "id". Usamos el que exista.
       const id = datosEditados._id || datosEditados.id;
 
       const respuesta = await fetch(`http://localhost:4000/api/juegos/${id}`, {
@@ -165,7 +172,7 @@ const cerrarModalHandler = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(datosEditados) // Enviamos todos los datos nuevos
+        body: JSON.stringify(datosEditados)
       });
 
       if (respuesta.ok) {
@@ -222,6 +229,31 @@ const toggleCompletadoHandler = async (idDelJuego) => {
     console.error(' Error al actualizar estado:', error);
   }
 };
+
+  const eliminarResenaHandler = async (idResena) => {
+    try {
+      const resp = await fetch(`http://localhost:4000/api/resenas/${idResena}`, { method: 'DELETE' });
+      if (resp.ok) {
+        setResenas((prev) => prev.filter((r) => (r._id || r.id) !== idResena));
+      }
+    } catch (error) { console.error(error); }
+  };
+
+  const editarResenaHandler = async (idResena, nuevoTexto) => {
+    try {
+      const resp = await fetch(`http://localhost:4000/api/resenas/${idResena}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ texto: nuevoTexto })
+      });
+      if (resp.ok) {
+        const resenaActualizada = await resp.json();
+        setResenas((prev) => prev.map((r) => 
+          (r._id || r.id) === idResena ? resenaActualizada : r
+        ));
+      }
+    } catch (error) { console.error(error); }
+  };
 
 // --- BLOQUE MÁGICO: FILTRADO Y ORDENAMIENTO ---
 
@@ -295,7 +327,10 @@ return (
           onEliminarJuego={eliminarJuegoHandler} 
           onToggleCompletado={toggleCompletadoHandler}
           onAbrirModalEditar={abrirModalEditarHandler} />
-          <ListaResenas listaDeResenas={resenas} />
+          <ListaResenas 
+          listaDeResenas={resenas} 
+          onEliminar={eliminarResenaHandler}
+          onEditar={editarResenaHandler} />
           {/* ----------------------- */}
           {/* Cierre del div "App" */}
         </div>

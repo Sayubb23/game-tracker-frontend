@@ -45,16 +45,20 @@ body {
 
 /* --- ESTILOS MODO OSCURO ---*/
 
-/* Cuando el BODY tenga la etiqueta "modo-oscuro"...*/
 body.modo-oscuro {
   background-color: #121212;
   color: #e0e0e0;
 }
-
-/* Tambien cambiamos el color de los titulos */
-body.modo-oscuro .App h1,
-body.modo-oscuro .layout-main h2,
-body.modo-oscuro .form-resena h3 {
+body.modo-oscuro .App h1, 
+body.modo-oscuro h2, 
+body.modo-oscuro h3 {
   color: #ffffff;
 }
-
+/* Arreglo para inputs en modo oscuro */
+body.modo-oscuro input, 
+body.modo-oscuro textarea, 
+body.modo-oscuro select {
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+}

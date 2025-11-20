@@ -29,13 +29,16 @@ function ModalEditar({ juego, onCerrar, onGuardar }) {
   // 4. Función para manejar el guardado
     const manejarGuardado = (e) => {
     e.preventDefault();
+    const idReal = juego._id || juego.id;
+
     const datosEditados = {
-      id: juego.id, // ¡Importante! Mantenemos el ID original
-        titulo,
-        portada,
-        estrellas,
-        horas,
-        completado
+      _id: idReal, // Guardamos el ID real en el paquete
+      id: idReal,  // (Opcional) Lo ponemos también como 'id' por si acaso
+      titulo,
+      portada,
+      estrellas,
+      horas,
+      completado
     };
     onGuardar(datosEditados); // Llamamos al "teléfono" de Papá (App.js)
 };

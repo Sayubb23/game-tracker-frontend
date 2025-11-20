@@ -13,8 +13,8 @@ function BibliotecaJuegos({ juegos, onEliminarJuego, onToggleCompletado, onAbrir
         */}
         {juegos.map((juego) => (
           <TarjetaJuego
-            key={juego.id} // La llave es súper importante para React
-            id={juego.id}
+            key={juego._id || juego.id} // La llave es súper importante para React
+            id={juego._id || juego.id} // Usamos el operador OR || para que el ID entienda por _id o id
             titulo={juego.titulo}
             portada={juego.portada}
             estrellas={juego.estrellas}

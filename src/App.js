@@ -10,37 +10,15 @@ import Ordenador from './components/Ordenador/Ordenador';
 import ModoOscuroToggle from './components/ModoOscuroToggle.js/ModoOscuroToggle';
 import ModalEditar from './components/ModalEditar/ModalEditar';
 
-// Función para cargar los JUEGOS guardados
-const cargarJuegosGuardados = () => {
-  const datosGuardados = localStorage.getItem('game-tracker-juegos');
-  // Si el cajón NO está vacío...
-  if (datosGuardados) {
-    console.log('¡Encontré juegos guardados! 😃');
-    return JSON.parse(datosGuardados); // ¡Los "des-aplastamos" (parse) y los devolvemos!
-  }
-  // Si el cajón está vacío, empezamos con una lista vacía.
-  console.log('No había juegos guardados. Empezando de cero.');
-  return []; 
-};
-
-// Función para cargar las RESEÑAS guardadas
-const cargarResenasGuardadas = () => {
-  const datosGuardados = localStorage.getItem('game-tracker-resenas');
-  if (datosGuardados) {
-    return JSON.parse(datosGuardados);
-  }
-  return []; // Empezamos con una lista vacía
-};
-
 function App() {
   // ¡La Caja Maestra!
-  const [juegos, setJuegos] = useState(cargarJuegosGuardados());
+  const [juegos, setJuegos] = useState([]);
   
   // Texto Busqueda
   const [busqueda, setBusqueda] = useState('');
 
   // Guardar las reseñas que escribamos
-  const [resenas, setResenas] = useState(cargarResenasGuardadas()); 
+  const [resenas, setResenas] = useState([]); 
 
   const [tipoOrden, setTipOrden] = useState('titulo');
 
@@ -49,98 +27,201 @@ function App() {
 
   // Un cajon para guardar el JUEGO que se esta editando
   // Si es "null", el modal esta cerrado.
-  const [juegoAEditar, setJuegosAEditar] = useState(null);
+  const [juegoAEditar, setJuegoAEditar] = useState(null);
 
-  const agregarJuegoHandler = (datosDelFormulario) => {
-
-    const juegoNuevo = {
-      ...datosDelFormulario, 
-      id: Math.random().toString()
+// CONEXIÓN CON EL BACKEND 
+  useEffect(() => {
+    const obtenerJuegos = async () => {
+      try {
+        console.log('📡 Conectando con la cocina (Backend)...');
+        // Llamamos al mesero
+        const respuesta = await fetch('http://localhost:4000/api/juegos');
+        const juegosTraidos = await respuesta.json();
+        
+        // Guardamos lo que trajo en el estado
+        setJuegos(juegosTraidos);
+        console.log('✅ ¡Juegos recibidos:', juegosTraidos);
+      } catch (error) {
+        console.error('❌ Error al conectar con el backend:', error);
+      }
     };
+    obtenerJuegos();
+  }, []); // Se ejecuta solo una vez al inicio
     
-    setJuegos((juegosAnteriores) =>  {
-      return [juegoNuevo, ...juegosAnteriores];
+  useEffect(() => {
+    const obtenerDatos = async () => {
+      try {
+        // 1. Cargar Juegos
+        const respJuegos = await fetch('http://localhost:4000/api/juegos');
+        const juegosData = await respJuegos.json();
+        setJuegos(juegosData);
+
+        // 2. Cargar Reseñas 
+        const respResenas = await fetch('http://localhost:4000/api/resenas');
+        const resenasData = await respResenas.json();
+        setResenas(resenasData); // Guardamos las reseñas de la nube
+        
+      } catch (error) {
+        console.error('Error al conectar con el backend:', error);
+      }
+    };
+    obtenerDatos();
+  }, []);
+
+// Funcion para AGREGAR un juego (POST al Backend)
+const agregarJuegoHandler = async (datosDelFormulario) => {
+  try{
+    const nuevoJuego = {
+      ...datosDelFormulario
+    };
+
+    // Enviamos el paquete al Backend
+    const respuesta = await fetch('http://localhost:4000/api/juegos', {
+      method: 'POST', // Metodo para CREAR 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(nuevoJuego)
     });
+
+    // Si el Backend responde que todo va bien
+    if (respuesta.ok) {
+      const juegoGuardado = await respuesta.json();
+      console.log('Juego Guardado en la nube:', juegoGuardado);
+
+      // Actualizamos la pantalla
+      setJuegos((prev) => [juegoGuardado, ...prev]);
+    } else {
+      console.error('Error al guardar en el backend');
+    }
+  } catch (error) {
+    console.error(' Error de conexión:', error);
+  }
+};
+
+const agregarResenaHandler = async (nuevaResena) => {
+    try {
+      // Enviamos al Backend
+      const respuesta = await fetch('http://localhost:4000/api/resenas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nuevaResena)
+      });
+
+      if (respuesta.ok) {
+        const resenaGuardada = await respuesta.json();
+        // Actualizamos la pantalla
+        setResenas((prev) => [resenaGuardada, ...prev]);
+      }
+    } catch (error) {
+      console.error('Error al guardar reseña:', error);
+    }
   };
 
-  const agregarResenaHandler = (nuevaResena) => {
-    setResenas((resenasAnteriores) => {
-      return [nuevaResena, ...resenasAnteriores];
+// Funcion para ELIMINAR (DELETE al Backend)
+const eliminarJuegoHandler = async (idDelJuego) => {
+  try {
+    // Se llama al backend por medio del metodo DELETE
+    const respuesta = await fetch(`http://localhost:4000/api/juegos/${idDelJuego}`, {
+      method: 'DELETE',
     });
-  };
 
-  // Maneja la eliminación de un juego por id
-  const eliminarJuegoHandler = (id) => {
-    setJuegos((juegosAnteriores) => {
-      return juegosAnteriores.filter((juego) => juego.id !== id);
-    });
-  };
+    // Si el backend nos dice "OK, borrado"...
+    if (respuesta.ok) {
+      console.log('🗑️ Juego eliminado de la nube');
+
+      // Actualizamos la pantalla
+      // Usamos "_id" porque Mongo usa guion bajo, pero nuestro front usaba "id"
+      setJuegos((prev) => prev.filter((juego) => (juego._id || juego.id) !== idDelJuego));
+    } else {
+      console.error('Error al eliminar en el backend');
+    }
+  } catch (error) {
+    console.error(' Error de conexión', error);
+  }
+};
 
   // Esta funcion recibe el ID del juego de la tarjeta
   const abrirModalEditarHandler = (idDelJuego) => {
     // 1. Buscamos el juego completo en nuestra lista "juegos"
     const juegoEncontrado = juegos.find((juego) => juego.id === idDelJuego);
     // 2. Lo ponemos en el "cajon"
-    setJuegosAEditar(juegoEncontrado);
+    setJuegoAEditar(juegoEncontrado);
   };
 
 // Función para CERRAR el modal (fácil, solo vaciamos el cajón)
 const cerrarModalHandler = () => {
-  setJuegosAEditar(null);
+  setJuegoAEditar(null);
 };
 
-// Función para GUARDAR los cambios del modal
-const guardarCambiosHandler = (datosEditados) => {
-  // Usamos "setJuegos" para actualizar la lista
-  setJuegos((juegosAnteriores) => {
+// Función para GUARDAR EDICIÓN TOTAL (PUT al Backend)
+  const guardarCambiosHandler = async (datosEditados) => {
+    try {
+      // El ID viene dentro de "datosEditados"
+      const id = datosEditados._id || datosEditados.id;
 
-    // Usamos .map() para crear una lista nueva
-    return juegosAnteriores.map((juego) => {
-      // Si encontramos el juego que queremos editar...
-      if (juego.id === datosEditados.id) {
-        // ...¡lo reemplazamos con los "datosEditados" que vienen del modal!
-        return datosEditados;
-      }
-      // Si no es, lo devolvemos como estaba
-      return juego;
-    });
-  });
-
-  // ¡Importante! Cerramos el modal después de guardar
-  setJuegosAEditar(null);
-};
-
-//Esta instruccion se ejecuta al apretar el nuevo boton
-  const toggleCompletadoHandler = (idDelJuego) => {
-    setJuegos((juegosAnteriores) => {
-      // Usamos "map" para crear una lista NUEVA
-      return juegosAnteriores.map((juego) => {  
-        // Si encontramos el juego que queremos cambiar...    
-        if (juego.id === idDelJuego) {
-          // ...le devolvemos una COPIA, pero con el valor "completado" al reves
-          // (Si era "true" -> "false, si era "false" -> "true")
-          return { ...juego, completado: !juego.completado };
-        }
-        // Si no es el juego que buscamos, lo devolvemos tal como estaba.
-        return juego;
+      const respuesta = await fetch(`http://localhost:4000/api/juegos/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosEditados) // Enviamos todos los datos nuevos
       });
-    });
+
+      if (respuesta.ok) {
+        const juegoFinal = await respuesta.json();
+        console.log('✏️ Juego editado en la nube:', juegoFinal);
+
+        // Actualizamos la lista visual
+        setJuegos((prev) => prev.map((juego) => {
+          if ((juego._id || juego.id) === id) {
+            return juegoFinal;
+          }
+          return juego;
+        }));
+
+        // Cerramos el modal
+        setJuegoAEditar(null);
+      }
+    } catch (error) {
+      console.error('❌ Error al guardar edición:', error);
+    }
   };
 
-// --- EFECTOS DE GUARDADO AUTOMATICO ---
-// Este "espia" vigila la lista [juegos]
-useEffect(() => {
-  // Cuando [juegos] cambia, ejecutamos esto:
-  console.log('Espia: La lista de juegos cambio. Guardando en el cajón...');
-  // Guardamos la lista convertida a texto en el "cajón secreto".
-  localStorage.setItem('game-tracker-juegos', JSON.stringify(juegos));
-}, [juegos]); // El [juegos] al final significa: "Solo ejecutate si 'juegos' cambia"
+// Funcion para cambiar COMPLETADO (PUT al Backend)
+const toggleCompletadoHandler = async (idDelJuego) => {
+  // Buscamos el juego en nuestra lista actual para saber como esta
+  const juegoActual = juegos.find((j) => (j._id || j.id) === idDelJuego);
+  if (!juegoActual) return; 
+  
+  const nuevoEstado = !juegoActual.completado;
 
-// Este "espia" vigila la lista [reseñas]
-useEffect(() =>  {
-  console.log('Espia: Las reseñas cambiaron. Guardando...');
-  localStorage.setItem('game-tracker-resenas', JSON.stringify(resenas));
-}, [resenas]); // Solo se ejecuta si 'reseñas' cambia 
+  try {
+    // Enviamos SOLO el cambio al backend
+    const respuesta = await fetch(`http://localhost:4000/api/juegos/${idDelJuego}`, {
+      method: 'PUT', // Metodo para EDITAR
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ completado: nuevoEstado }) // Enviamos unicamnete lo que cambio
+    });
+
+    if (respuesta.ok) {
+      const juegoActualizado = await respuesta.json();
+      console.log(' Estado actualizado en la nube:', juegoActualizado);
+
+      // Actualizamos la pantalla
+      setJuegos((prev) => prev.map((juego) => {
+        if((juego._id || juego.id) === idDelJuego) {
+          return juegoActualizado; // Remplazamos con lo que devolvio el backend
+        }
+        return juego;
+      }));
+    }
+  } catch (error) {
+    console.error(' Error al actualizar estado:', error);
+  }
+};
 
 // --- BLOQUE MÁGICO: FILTRADO Y ORDENAMIENTO ---
 
@@ -168,9 +249,9 @@ useEffect(() =>  {
     return 0; // Si no hay orden, no muevas nada
   });
 
-  return (
+return (
     <div className="App">
-      
+
       {/* Encabezado */}
       <header className="app-header">
         <h1>¡Hola, Gamer! Este es tu GameTracker.</h1>
@@ -182,7 +263,6 @@ useEffect(() =>  {
       
       {/* Aqui lo ponemos Y le pasamos la "Caja Maestra" */}
         <EstadisticaPersonales juegos={juegos}/>
-
         <Buscador
         busqueda={busqueda}
         onBuscar={setBusqueda} 
@@ -207,7 +287,7 @@ useEffect(() =>  {
           />
         </div>
         {/* 3. Caja de "Contenido Principal Derecho" */}
-        <div clasName="layout-main">
+        <div className="layout-main">
           {/* La estanteria va aqui */}
           {/* ¡Le pasamos la caja de juegos a la estantería! */}
           <BibliotecaJuegos 
@@ -222,8 +302,8 @@ useEffect(() =>  {
       </div> {/* Fin de .app-layout */}
       {/* --- ¡AQUÍ RENDERIZAMOS EL MODAL! --- */}
         {/* Esto es un "renderizado condicional".
-          Le decimos a React: Si "juegoAEditar" NO es "null" (&&)...
-          ...¡entonces dibuja el componente ModalEditar!
+          Le decimos a React: Si "juegoAEditar" NO es "null" (&&)
+          entonces dibuja el componente ModalEditar
         */}
         {juegoAEditar && (
           <ModalEditar 

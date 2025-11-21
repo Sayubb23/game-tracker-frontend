@@ -226,7 +226,7 @@ const toggleCompletadoHandler = async (idDelJuego) => {
       }));
     }
   } catch (error) {
-    console.error(' Error al actualizar estado:', error);
+    console.error('Error al actualizar estado:', error);
   }
 };
 

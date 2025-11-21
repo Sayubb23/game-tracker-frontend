@@ -15,7 +15,8 @@ body {
 
 .App h1 {
   text-align: center;
-  color: #444;
+  color: #35189d;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Estilo para el nuevo encabezado (titulo + interruptor) */

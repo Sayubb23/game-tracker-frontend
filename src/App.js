@@ -286,7 +286,7 @@ return (
 
       {/* Encabezado */}
       <header className="app-header">
-        <h1>¡Hola, Gamer! Este es tu GameTracker.</h1>
+        <h1>¡Hola, Gamer! Este es tu GameTracker de confianza.</h1>
         <ModoOscuroToggle 
         esModoOscuro={esModoOscuro}
         onToggle={() => setEsModooscuro(!esModoOscuro)} // La magia para "darle la vuelta" 

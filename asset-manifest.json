@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/game-tracker-frontend/static/css/main.50596177.css",
+    "main.css": "/game-tracker-frontend/static/css/main.735df49f.css",
     "main.js": "/game-tracker-frontend/static/js/main.20101d71.js",
     "static/js/453.dd1bc301.chunk.js": "/game-tracker-frontend/static/js/453.dd1bc301.chunk.js",
     "index.html": "/game-tracker-frontend/index.html",
-    "main.50596177.css.map": "/game-tracker-frontend/static/css/main.50596177.css.map",
+    "main.735df49f.css.map": "/game-tracker-frontend/static/css/main.735df49f.css.map",
     "main.20101d71.js.map": "/game-tracker-frontend/static/js/main.20101d71.js.map",
     "453.dd1bc301.chunk.js.map": "/game-tracker-frontend/static/js/453.dd1bc301.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.50596177.css",
+    "static/css/main.735df49f.css",
     "static/js/main.20101d71.js"
   ]
 }

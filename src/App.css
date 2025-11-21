@@ -1,8 +1,12 @@
-/* Primero, le damos un fondo a toda la pagina y reiniciamos margenes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* 1. Fondo y Fuente Base */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f2e3e3;
+  font-family: 'Poppins', sans-serif; /* ¡Aquí aplicamos la nueva fuente! */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Fondo con degradado suave */
+  color: #333;
+  min-height: 100vh; /* Que ocupe toda la pantalla */
 }
 
 .App {
@@ -13,10 +17,13 @@ body {
   box-sizing: border-box;
 }
 
+/* 2. Título Principal con Estilo */
 .App h1 {
-  text-align: center;
-  color: #35189d;
-  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  color: #2c3e50;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  letter-spacing: -1px;
+  margin-bottom: 0;
 }
 
 /* Estilo para el nuevo encabezado (titulo + interruptor) */
@@ -43,12 +50,23 @@ body {
   min-width: 300px;
 }
 
+/* 3. Estilo Global para Botones (Para que todos se vean igual de bien) */
+button {
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease; /* Animación suave al pasar el mouse */
+  cursor: pointer;
+}
+
+/* Efecto "presionar" al hacer click */
+button:active {
+  transform: scale(0.95);
+}
 
 /* --- ESTILOS MODO OSCURO ---*/
 
 body.modo-oscuro {
-  background-color: #121212;
-  color: #e0e0e0;
+  background: linear-gradient(135deg, #232526 0%, #414345 100%); /* Degradado oscuro */
+  color: #ecf0f1;
 }
 body.modo-oscuro .App h1, 
 body.modo-oscuro h2, 
@@ -62,4 +80,33 @@ body.modo-oscuro select {
   background-color: #333;
   color: white;
   border: 1px solid #555;
+}
+
+/* Diseño de la barra de desplazamiento (Scrollbar) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* El "carril" de fondo */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* La "manija" que mueves */
+::-webkit-scrollbar-thumb {
+  background: #ccc; 
+  border-radius: 5px;
+}
+
+/* Al pasar el mouse sobre la manija */
+::-webkit-scrollbar-thumb:hover {
+  background: #888; 
+}
+
+/* Ajuste para Modo Oscuro */
+body.modo-oscuro ::-webkit-scrollbar-track {
+  background: #2c2c2c;
+}
+body.modo-oscuro ::-webkit-scrollbar-thumb {
+  background: #555;
 }

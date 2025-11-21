@@ -14,7 +14,7 @@
 
 /* La caja blanca (o oscura) del modal */
 .modal-contenido {
-    background-color: white;
+    background-color: rgb(91, 122, 200);
     padding: 20px 30px;
     border-radius: 10px;
     width: 90%;
@@ -32,7 +32,7 @@
     border: none;
     font-size: 28px;
     font-weight: bold;
-    color: #888;
+    color: #000000;
     cursor: pointer;
 }
 

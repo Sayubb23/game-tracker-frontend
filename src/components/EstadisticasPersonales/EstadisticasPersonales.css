@@ -1,5 +1,5 @@
 .estadistica-contenedor {
-    background-color: #333;
+    background-color: #333333;
     color: #fff;
     border-radius: 10px;
     padding: 20px;
@@ -19,7 +19,7 @@
 }
 
 .stat-item {
-    background-color: #555;
+    background-color: #6533c9;
     padding: 15px;
     border-radius: 8px;
     min-width: 120px;
@@ -28,11 +28,11 @@
 .stat-item p {
     margin: 0 0 10px 0;
     font-size: 14px;
-    color: #ddd;
+    color: #faff62;
 }
 
 .stat-item span {
     font-size: 28px;
     font-weight: bold;
-    color: #f39c12;
+    color: #ffed50;
 }

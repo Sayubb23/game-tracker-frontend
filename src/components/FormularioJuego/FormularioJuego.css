@@ -56,3 +56,38 @@
   margin-bottom: 0; /* Le quitamos el margen de abajo */
   margin-right: 10px; /* Le damos espacio a la derecha */
 }
+
+.formulario-juego {
+  background: white;
+  border: none; 
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12); /* Sombra elegante */
+  border-radius: 20px;
+}
+
+.formulario-juego input {
+  background-color: #f7f9fc;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+/* Cuando escribes en el input, se pone azul */
+.formulario-juego input:focus {
+  background-color: white;
+  border-color: #2196f3;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+}
+
+.btn-agregar {
+  background: linear-gradient(45deg, #11998e, #38ef7d); /* Degradado verde moderno */
+  box-shadow: 0 4px 15px rgba(56, 239, 125, 0.4); /* Sombra verde */
+  width: 100%;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-agregar:hover {
+  filter: brightness(1.1); /* Brilla al pasar el mouse */
+}
